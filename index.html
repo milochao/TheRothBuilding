@@ -174,18 +174,9 @@
   .frame.has{background:none}
   .frame img{width:100%;height:100%;object-fit:cover;
              filter:grayscale(1) sepia(.22) contrast(1.04)}
-  /* ---------- Arnautoff's murals, rotating next to the building ---------- */
-  #muralphotos image{filter:grayscale(1) sepia(.22) contrast(1.04);opacity:0;
-                      animation:muralfade 9s ease-in-out infinite}
-  #muralphotos image[data-mural="1"]{animation-delay:3s}
-  #muralphotos image[data-mural="2"]{animation-delay:6s}
-  @keyframes muralfade{
-    0%{opacity:1}
-    25.9%{opacity:1}
-    33.3%{opacity:0}
-    92.6%{opacity:0}
-    100%{opacity:1}
-  }
+  /* ---------- Arnautoff's murals: a filmstrip that advances as the reader scrolls ---------- */
+  #muralphotos image{filter:grayscale(1) sepia(.22) contrast(1.04)}
+  #muraltrack{transition:transform .6s ease;will-change:transform}
 
   .who{font-size:.66rem;line-height:1.4;color:var(--ink2);letter-spacing:.03em}
   .who b{display:block;color:var(--ink);font-weight:600;font-size:.7rem}
@@ -223,8 +214,6 @@
     #bldg path.draw,#bldg line.draw,#bldg rect.draw{stroke-dasharray:none;stroke-dashoffset:0}
     .legswap.b{opacity:0 !important}
     .legswap:not(.b){opacity:1 !important}
-    #muralphotos image{opacity:0 !important}
-    #muralphotos image[data-mural="0"]{opacity:1 !important}
   }
 </style>
 </head>
@@ -242,7 +231,7 @@
         <pattern id="muralhatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
           <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(87,73,58,.5)" stroke-width="1"/>
         </pattern>
-        <clipPath id="muralclip"><rect x="680" y="90" width="76" height="98"/></clipPath>
+        <clipPath id="muralclip"><rect x="0" y="0" width="152" height="196"/></clipPath>
       </defs>
 
       <!-- ground + earth : visible from the first frame -->
@@ -304,14 +293,21 @@
         <rect x="408" y="468" width="26" height="52" fill="url(#muralhatch)" stroke="var(--ink3)" stroke-width="1"/>
         <rect x="526" y="468" width="26" height="52" fill="url(#muralhatch)" stroke="var(--ink3)" stroke-width="1"/>
       </g>
-      <!-- his actual work, rotating in a loop. Filenames are placeholders: MURALS below
-           is empty until Milo drops the real files next to index.html, same pattern as PHOTOS. -->
+      <!-- his actual work, left-justified in its frame, advancing one image per beat as the
+           reader scrolls down (and back as they scroll up). Filenames are placeholders: MURALS
+           below is empty until Milo drops the real files next to index.html, same pattern as PHOTOS. -->
       <g id="muralphotos" data-from="2" class="dimmable">
-        <text class="lab2" x="680" y="82">Arnautoff</text>
-        <image data-mural="0" x="680" y="90" width="76" height="98" clip-path="url(#muralclip)" preserveAspectRatio="xMidYMid slice"/>
-        <image data-mural="1" x="680" y="90" width="76" height="98" clip-path="url(#muralclip)" preserveAspectRatio="xMidYMid slice"/>
-        <image data-mural="2" x="680" y="90" width="76" height="98" clip-path="url(#muralclip)" preserveAspectRatio="xMidYMid slice"/>
-        <rect x="680" y="90" width="76" height="98" fill="none" stroke="var(--ink3)" stroke-width="1"/>
+        <text class="lab2" x="680" y="10">Arnautoff</text>
+        <g transform="translate(680,20)">
+          <g clip-path="url(#muralclip)">
+            <g id="muraltrack">
+              <image data-mural="0" x="0"   y="0" width="152" height="196" preserveAspectRatio="xMidYMid slice"/>
+              <image data-mural="1" x="152" y="0" width="152" height="196" preserveAspectRatio="xMidYMid slice"/>
+              <image data-mural="2" x="304" y="0" width="152" height="196" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+          </g>
+          <rect x="0" y="0" width="152" height="196" fill="none" stroke="var(--ink3)" stroke-width="1"/>
+        </g>
       </g>
 
       <!-- Channing House, off-site, 1964 -->
@@ -663,7 +659,8 @@ var PHOTOS = {
 };
 /* Mural slots, same idea as PHOTOS: three filenames, in rotation order. Upload the files
    next to index.html and put their names here, in the order they should cycle. */
-var MURALS = ["Arnautoff_Mural_1.jpg", "Arnautoff_Mural_2.jpg", "Arnautoff_Mural_3.jpg"];
+var MURALS = ["Arnautoff_1.jpg", "Arnautoff_2.jpeg", "Arnautoff_3.jpeg"];
+var MURAL_W = 152;
 </script>
 <script>
 (function(){
@@ -752,6 +749,12 @@ var MURALS = ["Arnautoff_Mural_1.jpg", "Arnautoff_Mural_2.jpg", "Arnautoff_Mural
 
     setClock(CLOCK[b] || "");
     setPlate(b);
+
+    var track = document.getElementById('muraltrack');
+    if (track){
+      var idx = b < 2 ? 0 : (b - 2) % 3;
+      track.style.transform = 'translateX(' + (-idx * MURAL_W) + 'px)';
+    }
   }
 
   var beats = Array.prototype.slice.call(document.querySelectorAll('.beat'));
