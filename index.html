@@ -118,6 +118,35 @@
   /* roster + staggered children */
   .stag{transition-delay:var(--d,0ms)}
 
+  /* ---------- scale figure: a person walking a dog, back and forth, sized against
+     the building's own drawn proportions so the reader can feel how big it really is ---------- */
+  #walkerTravel{transform-box:fill-box;transform-origin:center bottom;
+                animation:walkacross 36s ease-in-out infinite;will-change:transform}
+  #walkerBob{transform-box:fill-box;transform-origin:center bottom;
+             animation:walkbob .9s ease-in-out infinite}
+  .legswap{animation:legswap .9s linear infinite}
+  .legswap.b{animation-delay:.45s}
+  #dog .legswap{animation-duration:.6s}
+  #dog .legswap.b{animation-delay:.3s}
+  @keyframes walkacross{
+    0%{transform:translateX(0) scaleX(1)}
+    44%{transform:translateX(680px) scaleX(1)}
+    50%{transform:translateX(680px) scaleX(-1)}
+    94%{transform:translateX(0) scaleX(-1)}
+    100%{transform:translateX(0) scaleX(1)}
+  }
+  @keyframes walkbob{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-1.5px)}
+  }
+  @keyframes legswap{
+    0%{opacity:1}
+    49%{opacity:1}
+    51%{opacity:0}
+    99%{opacity:0}
+    100%{opacity:1}
+  }
+
   /* fine SVG annotations */
   svg text{font-family:var(--mono);fill:var(--ink2)}
   svg .lab{font-size:15.5px;letter-spacing:.04em}
@@ -179,6 +208,8 @@
   @media (prefers-reduced-motion:reduce){
     *,svg *{transition:none !important;animation:none !important}
     #bldg path.draw,#bldg line.draw,#bldg rect.draw{stroke-dasharray:none;stroke-dashoffset:0}
+    .legswap.b{opacity:0 !important}
+    .legswap:not(.b){opacity:1 !important}
   }
 </style>
 </head>
@@ -477,6 +508,45 @@
         <ellipse cx="480" cy="488" rx="52" ry="50" fill="none" stroke="var(--ink)"
                  stroke-width="1.4" stroke-dasharray="3 5"/>
       </g>
+
+      <!-- scale figure: a person walking a dog, back and forth along the sidewalk.
+           Person is ~56 units tall, derived from the building's own drawn proportions
+           (the arched entry, cross-checked against parapet height) at roughly 9.5 units
+           per foot -- an internal-consistency scale reading, not a sourced measurement. -->
+      <g id="walker" data-from="2" class="dimmable" transform="translate(170,520)" aria-hidden="true">
+        <g id="walkerTravel">
+          <g id="walkerBob">
+            <line x1="8" y1="-38" x2="27" y2="-16" stroke="var(--ink3)" stroke-width="1"/>
+            <g id="dog" fill="var(--ink2)">
+              <rect x="11" y="-19" width="3" height="6"/>
+              <rect x="13" y="-15" width="17" height="8"/>
+              <rect x="29" y="-19" width="7" height="7"/>
+              <g class="legswap">
+                <rect x="17" y="-7" width="3" height="7"/>
+                <rect x="26" y="-7" width="3" height="7"/>
+              </g>
+              <g class="legswap b">
+                <rect x="20" y="-7" width="3" height="7"/>
+                <rect x="23" y="-7" width="3" height="7"/>
+              </g>
+            </g>
+            <g id="person" fill="var(--ink)">
+              <rect x="-6" y="-47" width="12" height="21"/>
+              <g class="legswap">
+                <rect x="-7" y="-26" width="5" height="26"/>
+                <rect x="2" y="-26" width="5" height="26"/>
+              </g>
+              <g class="legswap b">
+                <rect x="-4" y="-26" width="5" height="26"/>
+                <rect x="-1" y="-26" width="5" height="26"/>
+              </g>
+              <rect x="-7" y="-45" width="3" height="15"/>
+              <rect x="5" y="-45" width="3" height="14"/>
+              <rect x="-4" y="-56" width="8" height="9"/>
+            </g>
+          </g>
+        </g>
+      </g>
     </svg>
 
     <div class="clock" aria-hidden="true"><span id="clockA"></span><span id="clockB"></span></div>
@@ -549,7 +619,7 @@
     <section class="beat" data-b="19"><div class="card"><p>Early in January, a storm sent water into the basement, the one holding the collection. Some pieces were damaged outright. The rest were put at risk. This was the same basement whose leak had nearly ended the project in 2007, back when it was empty. Now it was full.</p></div></section>
     <section class="beat" data-b="20"><div class="card"><p>February brought more rain and a second leak, along a different wall. Hancock brought in water specialists, architects, contractors, city staff, and went back through the building’s own record of past intrusions to understand the pattern. In a written note to supporters on the 24th, she put it plainly: the building’s history of water problems is long, the causes are complicated, and the fixes have come in layers over the years, none of them final. A local paper reported the delay two days later, alongside a new promise, a date by the end of March, contingent on the museum and the city agreeing on scope, budget, timeline, and approvals.</p></div></section>
     <section class="beat" data-b="21"><div class="card"><p>That date came and went. No one has said publicly what happened to it. Two new board members, Peter Hébert and Dana Tom, started their terms on July 1. The museum’s own materials now describe an opening in stages, sometime after this summer and into next spring. They don’t name a day.</p></div></section>
-    <section class="beat beat--coda" data-b="22"><div class="card"><p>The water came into the same basement twice, nineteen years apart. Both times, the people who’d spent years on the building decided to keep going. The doors haven’t opened yet.</p></div></section>
+    <section class="beat beat--coda" data-b="22"><div class="card"><p>The water came into the same basement twice, nineteen years apart. Both times, the people who’d spent years on the building decided to keep going. They still are.</p></div></section>
 
   </div>
 </div>
