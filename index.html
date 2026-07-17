@@ -174,9 +174,16 @@
   .frame.has{background:none}
   .frame img{width:100%;height:100%;object-fit:cover;
              filter:grayscale(1) sepia(.22) contrast(1.04)}
-  /* ---------- Arnautoff's murals: a filmstrip that advances as the reader scrolls ---------- */
-  #muralphotos image{filter:grayscale(1) sepia(.22) contrast(1.04)}
-  #muraltrack{transition:transform .6s ease;will-change:transform}
+  /* ---------- Arnautoff's murals: in the prose column, under his dossier,
+     scrubbed by the reader's own scrolling ---------- */
+  .muralstrip{margin:1.15rem 0 0;max-width:33rem}
+  .muralwin{overflow:hidden;border:1px solid var(--ink3);
+            background:repeating-linear-gradient(45deg,transparent 0 4px,rgba(141,125,104,.16) 4px 5px)}
+  .muraltrack{display:flex;width:300%;will-change:transform}
+  .muraltrack img{width:calc(100%/3);display:block;aspect-ratio:3/4;object-fit:cover}
+  .muraldots{display:flex;gap:.5rem;margin-top:.55rem}
+  .muraldots span{width:6px;height:6px;border:1px solid var(--ink3)}
+  .muraldots span.cur{background:var(--ink2);border-color:var(--ink2)}
 
   .who{font-size:.66rem;line-height:1.4;color:var(--ink2);letter-spacing:.03em}
   .who b{display:block;color:var(--ink);font-weight:600;font-size:.7rem}
@@ -231,7 +238,6 @@
         <pattern id="muralhatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
           <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(87,73,58,.5)" stroke-width="1"/>
         </pattern>
-        <clipPath id="muralclip"><rect x="0" y="0" width="152" height="196"/></clipPath>
       </defs>
 
       <!-- ground + earth : visible from the first frame -->
@@ -292,22 +298,6 @@
       <g id="murals" data-from="2" class="dimmable">
         <rect x="408" y="468" width="26" height="52" fill="url(#muralhatch)" stroke="var(--ink3)" stroke-width="1"/>
         <rect x="526" y="468" width="26" height="52" fill="url(#muralhatch)" stroke="var(--ink3)" stroke-width="1"/>
-      </g>
-      <!-- his actual work, left-justified in its frame, advancing one image per beat as the
-           reader scrolls down (and back as they scroll up). Filenames are placeholders: MURALS
-           below is empty until Milo drops the real files next to index.html, same pattern as PHOTOS. -->
-      <g id="muralphotos" data-from="2" class="dimmable">
-        <text class="lab2" x="680" y="10">Arnautoff</text>
-        <g transform="translate(680,20)">
-          <g clip-path="url(#muralclip)">
-            <g id="muraltrack">
-              <image data-mural="0" x="0"   y="0" width="152" height="196" preserveAspectRatio="xMidYMid slice"/>
-              <image data-mural="1" x="152" y="0" width="152" height="196" preserveAspectRatio="xMidYMid slice"/>
-              <image data-mural="2" x="304" y="0" width="152" height="196" preserveAspectRatio="xMidYMid slice"/>
-            </g>
-          </g>
-          <rect x="0" y="0" width="152" height="196" fill="none" stroke="var(--ink3)" stroke-width="1"/>
-        </g>
       </g>
 
       <!-- Channing House, off-site, 1964 -->
@@ -604,7 +594,16 @@
 
     <div class="era"><h2>1924-1932</h2></div>
     <section class="beat" data-b="1"><div class="card"><p>In 1924, a doctor named Russel Lee opened a practice on Bryant Street with a colleague, Thomas Williams. Within six years, four more doctors joined them: Edward Roth, a surgeon, in 1925. Esther Clark, a pediatrician, in 1927, the only one between San Francisco and San Jose at the time. She was the sister of the architect who’d soon design their building, Birge Clark; one later account gets this backward and calls him hers. Blake Wilbur, trained at the Mayo Clinic, in 1930. By then there were six of them, and they called it the Palo Alto Clinic.</p><aside class="folk"><div class="folkhint">the people · click for the record</div><details class="dossier"><summary><span class="frame" data-person="lee">RL</span><span class="who"><b>Russel V. A. Lee</b>internist · Bryant Street, 1924</span></summary><div class="dcard"><div class="dbio">Born 1895 in Spanish Fork, Utah, a minister’s son; he arrived in Palo Alto at sixteen with eight dollars, enrolled at Stanford, and took his M.D. there in 1920. He taught medicine at Stanford across four decades while directing the clinic he founded. In 1951, President Truman appointed him to the Commission on the Health Needs of the Nation, whose plan later became a basis for Medicare. He donated and sold the city the 1,400 acres that became Foothills Park, and founded Channing House, opened January 1964, with lifetime medical care from the clinic’s own doctors. The record disagrees about his children: five sons per one Stanford finding aid, four sons and a daughter per another, five sons and a daughter per his own grandson’s account, all of them physicians. He died at home in January 1982, at 86.</div><div class="dsrc">Sources: <a href="https://www.paloaltohistory.org/russel-va-lee.php" target="_blank" rel="noopener">Palo Alto History</a> · <a href="https://lane.stanford.edu/elane/aid/04_Lee/index.htm" target="_blank" rel="noopener">Lane Medical Archives</a> · <a href="https://www.paloalto.gov/files/assets/public/v/1/planning-amp-development-services/historic-preservation/palo-alto-medical-clinic-national-register-nomination.pdf" target="_blank" rel="noopener">National Register nomination</a> · <a href="https://oac.cdlib.org/findaid/ark:/13030/c8pn9bs4/" target="_blank" rel="noopener">OAC finding aid</a></div><div class="dport">Portrait: No cleared portrait yet. Portraits sit in the Palo Alto Historical Association files (one captioned circa 1970, in his clinic office) and in Stanford’s Lane Medical Archives; both require permission.</div></div></details><details class="dossier"><summary><span class="frame" data-person="williams">TW</span><span class="who"><b>Thomas Williams</b>the first partner · 601 Bryant</span></summary><div class="dcard"><div class="dbio">The senior partner, and the reason there was a practice to join: Lee moved down from San Francisco in 1924 to join Dr. Williams’s office building at Bryant Street and Hamilton Avenue, 601 Bryant. The National Register nomination records him as the elder of the group, retired in 1929, the year before Blake Wilbur replaced him and three years before the Homer Avenue building opened. Beyond that, the open record goes quiet: no verifiable birth or death dates, education, or specialty survive online.</div><div class="dsrc">Sources: <a href="https://www.paloalto.gov/files/assets/public/v/1/planning-amp-development-services/historic-preservation/palo-alto-medical-clinic-national-register-nomination.pdf" target="_blank" rel="noopener">National Register nomination</a> · <a href="http://pahistory.org/talltree/TT-2022-10.pdf" target="_blank" rel="noopener">PAHA Tall Tree, Oct 2022</a></div><div class="dport">Portrait: None found in any open collection. The Palo Alto Historical Association photo archive is the likeliest holder.</div></div></details><details class="dossier"><summary><span class="frame" data-person="roth">ER</span><span class="who"><b>Edward Roth</b>surgeon · joined 1925</span></summary><div class="dcard"><div class="dbio">Edward Frederick Roth, called Fritz. Born in Ukiah, Stanford M.D. 1920, Lee’s class, with further surgical training in Boston. He joined the practice in 1925 to cover surgery and obstetrics, later returned to his first love, orthopedics, and became Stanford’s team physician in the 1930s, a post he held the rest of his career. When the murals drew crowds in 1932, he threatened to have the walls whitewashed before he would move in. When the practice outgrew the building in 1961, the new building took Lee’s name and the original took his. He died in 1972.</div><div class="dsrc">Sources: <a href="https://www.paloalto.gov/files/assets/public/v/1/planning-amp-development-services/historic-preservation/palo-alto-medical-clinic-national-register-nomination.pdf" target="_blank" rel="noopener">National Register nomination</a> · <a href="https://paloaltomuseum.org/the-roth-building/" target="_blank" rel="noopener">Palo Alto Museum</a> · <a href="http://pahistory.org/talltree/TT-2022-10.pdf" target="_blank" rel="noopener">PAHA Tall Tree</a></div><div class="dport">Portrait: None cleared. PAHA and Stanford’s athletics archives are the likeliest holders.</div></div></details><details class="dossier"><summary><span class="frame" data-person="esther-clark">EC</span><span class="who"><b>Esther Clark</b>pediatrician · joined 1927</span></summary><div class="dcard"><div class="dbio">Daughter of a Stanford art professor and sister of the building’s architect. In 1927 she was the only pediatrician on the mid-Peninsula, and among the first women physicians in California. She practiced until 1972, founded the Children’s Health Council, and chaired a national pediatricians’ commission on child accident prevention. In 1944 she bought land in the hills that had been a 1930s airstrip; the city park on it now carries her name.</div><div class="dsrc">Sources: <a href="https://en.wikipedia.org/wiki/Esther_Clark_(physician)" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.paloalto.gov/Departments/Community-Services/Parks-Open-Space-Golf-Division/Neighborhood-Parks/Esther-Clark-Park" target="_blank" rel="noopener">City of Palo Alto</a></div><div class="dport">Portrait: None cleared; her Wikipedia article has no photograph. PAMF and PAHA materials are the likeliest holders.</div></div></details><details class="dossier"><summary><span class="frame" data-person="wilbur">BW</span><span class="who"><b>Blake Wilbur</b>surgeon · joined 1930</span></summary><div class="dcard"><div class="dbio">Blake Colburn Wilbur, 1901 to 1974. San Francisco-born son of Stanford’s president Ray Lyman Wilbur. Stanford Phi Beta Kappa in 1922, Harvard M.D. 1925, training at the Mayo Clinic, then home: he joined the group on January 1, 1930, replacing the retiring Williams, and became renowned as its surgeon. A clinical professor of surgery at Stanford for many years, he operated up to his death in 1974. Stanford named Blake Wilbur Drive for him the following year, and in 1993 opened an outpatient clinic under his name.</div><div class="dsrc">Sources: <a href="https://www.paloalto.gov/files/assets/public/v/1/planning-amp-development-services/historic-preservation/palo-alto-medical-clinic-national-register-nomination.pdf" target="_blank" rel="noopener">National Register nomination</a> · <a href="https://en.wikipedia.org/wiki/Blake_Colburn_Wilbur" target="_blank" rel="noopener">Wikipedia</a></div><div class="dport">Portrait: None cleared. Stanford’s archives are the likeliest holder. Photos of his father circulate freely; they are not him.</div></div></details><details class="dossier"><summary><span class="frame" data-person="birge-clark">BC</span><span class="who"><b>Birge Clark</b>architect · designed 300 Homer</span></summary><div class="dcard"><div class="dbio">Stanford 1914, Columbia architecture 1917, and between the two a World War I observation-balloon pilot, shot down and awarded the Silver Star. Back home he became the architect Palo Alto is still made of: the Lou Henry Hoover House, the 1932 post office, the Lucie Stern Community Center, and his sister’s clinic at 300 Homer, in the Spanish Colonial Revival manner that earned him the name of Palo Alto’s best-loved architect. He died in 1989, at 96.</div><div class="dsrc">Sources: <a href="https://en.wikipedia.org/wiki/Birge_Clark" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://exhibits.stanford.edu/ua-maps-drawings/about/about-birge-m-clark" target="_blank" rel="noopener">Stanford exhibits</a></div><div class="dport">Portrait: None cleared; his Wikipedia article has no photograph. His papers and portraits sit in Stanford’s Birge M. Clark collection.</div></div></details></aside></div></section>
-    <section class="beat" data-b="2"><div class="card"><p>Clark built them a home in 1932, at 300 Homer Avenue, and brought in a muralist, Victor Arnautoff, to paint the walls. Arnautoff painted patients being examined, some of them partly undressed, and when the murals went up, the San Francisco Chronicle didn’t care for them. The clinic kept the murals anyway.</p><aside class="folk"><details class="dossier"><summary><span class="frame" data-person="arnautoff">VA</span><span class="who"><b>Victor Arnautoff</b>muralist · painted the walls, 1932</span></summary><div class="dcard"><div class="dbio">Born 1896 in Uspenovka, in the Russian Empire, now Ukraine. He learned fresco as Diego Rivera’s assistant in Mexico from 1929 to 1931, and the clinic walls were his first mural commission, painted in August 1932 for a practice where he had been a patient: four color frescoes of modern medicine at work, grisaille panels of older methods beneath, and medallions of Lister, Hippocrates, Pasteur and Roentgen. He painted Coit Tower’s City Life in 1934, taught art at Stanford from 1939 to 1963 per the National Register nomination, was questioned by HUAC for his politics, and after his wife’s death returned to the Soviet Union, dying in Leningrad in 1979. The frescoes joined the city’s public art collection in 2016 and were fully restored in 2026.</div><div class="dsrc">Sources: <a href="https://en.wikipedia.org/wiki/Victor_Arnautoff" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.paloalto.gov/files/assets/public/v/1/planning-amp-development-services/historic-preservation/palo-alto-medical-clinic-national-register-nomination.pdf" target="_blank" rel="noopener">National Register nomination</a> · <a href="https://www.cityofpaloalto.org/files/assets/public/v/1/community-services/public-art-commission/september-15_staff-report_item-x_acceptance-of-artwork-into-city-collection.ed.pdf" target="_blank" rel="noopener">City staff report</a> · <a href="https://www.almanacnews.com/ae/2026/07/02/why-medical-murals-by-a-diego-rivera-protege-adorn-a-peninsula-museum/" target="_blank" rel="noopener">The Almanac, Jul 2 2026</a> · <a href="https://livingnewdeal.org/life-work-victor-arnautoff-robert-cherny/" target="_blank" rel="noopener">Living New Deal</a></div><div class="dport">Portrait: A 1936 news photograph of Arnautoff with the artist Esther Bruton is listed as public domain on <a href="https://picryl.com/topics/victor+arnautoff" target="_blank" rel="noopener">PICRYL</a> and sits on <a href="https://commons.wikimedia.org/wiki/File:Esther_Bruton_and_Victor_Arnautoff_(1936).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>. Attach the file and it drops into this frame.</div></div></details></aside></div></section>
+    <section class="beat" data-b="2"><div class="card"><p>Clark built them a home in 1932, at 300 Homer Avenue, and brought in a muralist, Victor Arnautoff, to paint the walls. Arnautoff painted patients being examined, some of them partly undressed, and when the murals went up, the San Francisco Chronicle didn’t care for them. The clinic kept the murals anyway.</p><aside class="folk"><details class="dossier"><summary><span class="frame" data-person="arnautoff">VA</span><span class="who"><b>Victor Arnautoff</b>muralist · painted the walls, 1932</span></summary><div class="dcard"><div class="dbio">Born 1896 in Uspenovka, in the Russian Empire, now Ukraine. He learned fresco as Diego Rivera’s assistant in Mexico from 1929 to 1931, and the clinic walls were his first mural commission, painted in August 1932 for a practice where he had been a patient: four color frescoes of modern medicine at work, grisaille panels of older methods beneath, and medallions of Lister, Hippocrates, Pasteur and Roentgen. He painted Coit Tower’s City Life in 1934, taught art at Stanford from 1939 to 1963 per the National Register nomination, was questioned by HUAC for his politics, and after his wife’s death returned to the Soviet Union, dying in Leningrad in 1979. The frescoes joined the city’s public art collection in 2016 and were fully restored in 2026.</div><div class="dsrc">Sources: <a href="https://en.wikipedia.org/wiki/Victor_Arnautoff" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.paloalto.gov/files/assets/public/v/1/planning-amp-development-services/historic-preservation/palo-alto-medical-clinic-national-register-nomination.pdf" target="_blank" rel="noopener">National Register nomination</a> · <a href="https://www.cityofpaloalto.org/files/assets/public/v/1/community-services/public-art-commission/september-15_staff-report_item-x_acceptance-of-artwork-into-city-collection.ed.pdf" target="_blank" rel="noopener">City staff report</a> · <a href="https://www.almanacnews.com/ae/2026/07/02/why-medical-murals-by-a-diego-rivera-protege-adorn-a-peninsula-museum/" target="_blank" rel="noopener">The Almanac, Jul 2 2026</a> · <a href="https://livingnewdeal.org/life-work-victor-arnautoff-robert-cherny/" target="_blank" rel="noopener">Living New Deal</a></div><div class="dport">Portrait: A 1936 news photograph of Arnautoff with the artist Esther Bruton is listed as public domain on <a href="https://picryl.com/topics/victor+arnautoff" target="_blank" rel="noopener">PICRYL</a> and sits on <a href="https://commons.wikimedia.org/wiki/File:Esther_Bruton_and_Victor_Arnautoff_(1936).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>. Attach the file and it drops into this frame.</div></div></details></aside>
+      <figure class="muralstrip" id="muralstrip">
+        <div class="muralwin"><div class="muraltrack" id="muraltrack">
+          <img data-mural="0" alt="one of Victor Arnautoff&#8217;s 1932 murals for the clinic, first of three">
+          <img data-mural="1" alt="one of Victor Arnautoff&#8217;s 1932 murals for the clinic, second of three">
+          <img data-mural="2" alt="one of Victor Arnautoff&#8217;s 1932 murals for the clinic, third of three">
+        </div></div>
+        <div class="muraldots" aria-hidden="true"><span class="cur"></span><span></span><span></span></div>
+      </figure>
+    </div></section>
     <section class="beat" data-b="3"><div class="card"><p>The doctors did well, especially Lee. He hired Esther Clark himself, and years later built a retirement home in town, Channing House, in 1964. There’s more to his story than that, but it doesn’t enter the record until decades later, in an unlikely place.</p></div></section>
     <section class="beat" data-b="4"><div class="card"><p>By 1955, state law required a name change: Palo Alto Medical Clinic. By 1961, the practice had outgrown 300 Homer and moved next door, to a building named for Lee. The old building got a new name too, after Edward Roth. It kept doing its job for four more decades.</p></div></section>
 
@@ -657,10 +656,9 @@ var PHOTOS = {
   "birge-clark": "Birge_Clark.jpg", "arnautoff": "Victor_Arnautoff.jpeg", "murden": "Carol_Murden.jpeg", "green": "Richard_Green.jpeg",
   "bajuk": "Laura_Bajuk.jpeg", "hancock": "Marguerite_Gong.jpeg", "staiger": "Steve_Staiger.jpeg", "ng": "Nelson_Ng.jpeg", "holman": "Karen_Holman.jpeg", "dubois": "Tom_Dubois.jpeg"
 };
-/* Mural slots, same idea as PHOTOS: three filenames, in rotation order. Upload the files
-   next to index.html and put their names here, in the order they should cycle. */
+/* Mural slots, same idea as PHOTOS: three filenames, in viewing order. The files sit
+   next to index.html in the repo, exactly as named here. */
 var MURALS = ["Arnautoff_1.jpg", "Arnautoff_2.jpeg", "Arnautoff_3.jpeg"];
-var MURAL_W = 152;
 </script>
 <script>
 (function(){
@@ -749,12 +747,6 @@ var MURAL_W = 152;
 
     setClock(CLOCK[b] || "");
     setPlate(b);
-
-    var track = document.getElementById('muraltrack');
-    if (track){
-      var idx = b < 2 ? 0 : (b - 2) % 3;
-      track.style.transform = 'translateX(' + (-idx * MURAL_W) + 'px)';
-    }
   }
 
   var beats = Array.prototype.slice.call(document.querySelectorAll('.beat'));
@@ -778,11 +770,60 @@ var MURAL_W = 152;
 
   MURALS.forEach(function(src, i){
     if (!src) return;
-    var im = document.querySelector('image[data-mural="' + i + '"]');
-    if (!im) return;
-    im.setAttribute('href', src);
-    im.setAttribute('xlink:href', src);
+    var im = document.querySelector('img[data-mural="' + i + '"]');
+    if (im) im.src = src;
   });
+
+  /* The mural filmstrip is driven by the reader's own scrolling: as the strip travels
+     up the viewport, it slides from one painting to the next, and back again when the
+     reader scrolls up. Plateaus in the mapping hold each painting steady for most of
+     the travel; when scrolling pauses mid-slide, the strip settles to the nearest
+     full painting. Reduced motion gets clean cuts, never a partial slide. */
+  var mstrip = document.getElementById('muralstrip'),
+      mtrack = document.getElementById('muraltrack'),
+      mwin   = mstrip ? mstrip.querySelector('.muralwin') : null,
+      mdots  = mstrip ? Array.prototype.slice.call(mstrip.querySelectorAll('.muraldots span')) : [],
+      midleT = null, mfrac = 0, mtick = false;
+
+  function msmooth(t){ return t*t*(3-2*t); }
+  function mmap(p){
+    if (p < .28) return 0;
+    if (p < .40) return msmooth((p-.28)/.12);
+    if (p < .60) return 1;
+    if (p < .72) return 1 + msmooth((p-.60)/.12);
+    return 2;
+  }
+  function mapply(idx, animate){
+    mtrack.style.transition = (animate && !reduced.matches) ? 'transform .5s ease' : 'none';
+    mtrack.style.transform = 'translateX(' + (-idx * mwin.clientWidth) + 'px)';
+    var n = Math.round(idx);
+    mdots.forEach(function(d, i){ d.classList.toggle('cur', i === n); });
+  }
+  function mscrub(){
+    var r = mstrip.getBoundingClientRect(), vh = window.innerHeight;
+    if (r.bottom < 0 || r.top > vh) return;
+    var c = r.top + r.height / 2;
+    var p = (vh * .9 - c) / (vh * .8);
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+    mfrac = mmap(p);
+    if (reduced.matches) mfrac = Math.round(mfrac);
+    mapply(mfrac, false);
+    if (midleT) clearTimeout(midleT);
+    midleT = setTimeout(function(){
+      var t = Math.round(mfrac);
+      if (t !== mfrac){ mfrac = t; mapply(t, true); }
+    }, 170);
+  }
+  function monscroll(){
+    if (mtick) return;
+    mtick = true;
+    requestAnimationFrame(function(){ mtick = false; mscrub(); });
+  }
+  if (mstrip){
+    window.addEventListener('scroll', monscroll, {passive:true});
+    window.addEventListener('resize', monscroll, {passive:true});
+    mscrub();
+  }
 
   setBeat(0);
 })();
